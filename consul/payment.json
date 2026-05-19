@@ -1,0 +1,8 @@
+{
+    "name": "payment",
+    "port": 8005,
+    "check": {
+      "http": "http://payment:8005/health/",
+      "interval": "10s"
+      }
+}

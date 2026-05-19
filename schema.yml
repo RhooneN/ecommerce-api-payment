@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Your Project API
+  version: 1.0.0
+  description: Your project description
+paths:
+  /payment/:
+    get:
+      operationId: payment_retrieve
+      description: Get user's payment history
+      tags:
+      - payment
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: payment_create
+      description: Create a new payment from an order
+      tags:
+      - payment
+      responses:
+        '200':
+          description: No response body
+  /payment/cancel/:
+    get:
+      operationId: payment_cancel_retrieve
+      description: Handle PayPal payment cancellation
+      tags:
+      - payment
+      responses:
+        '200':
+          description: No response body
+  /payment/execute/:
+    get:
+      operationId: payment_execute_retrieve
+      description: Handle PayPal payment execution after user approval
+      tags:
+      - payment
+      responses:
+        '200':
+          description: No response body
+components: {}
