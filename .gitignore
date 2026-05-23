@@ -1,1 +1,3 @@
 django_deps
+dev.dockerfile
+.env

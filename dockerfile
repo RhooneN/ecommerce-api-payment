@@ -1,21 +1,17 @@
-# Start from a Python base image
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
-# Copy requirements.txt
+
+ENV DJANGO_SETTINGS_MODULE=payment.settings
+
 COPY requirements.txt .
 
-# Copy Python dependencies directory
-COPY django_deps /django_deps
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies from offline directory
-RUN pip install --no-index --find-links=/django_deps -r requirements.txt
+COPY . /app
 
-# Copy the app code
-COPY . .
 RUN python manage.py collectstatic --noinput
-# Run the app
+
 COPY consul/payment.json /app/consul/payment.json
 COPY entrypoint.sh /app/entrypoint.sh
 
