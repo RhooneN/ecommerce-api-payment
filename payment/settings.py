@@ -16,15 +16,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'django-insecure-36s$aukd6*njaanwj65v4ed1nil=0yg6ju2c@p0f0bq#b^@15%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ['payment', "orders", "notif", '127.0.0.1' ,
-    "authentic",
-    "shopping_cart",
-    "catalog",
-    "localhost",
-    'auth-service',  # For Docker compatibility
-    'app']
+ALLOWED_HOSTS = ["*"] if DEBUG else [".onrender.com"]
     
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # Auth service
