@@ -1,9 +1,10 @@
-name: Build and Push Docker Image
+name: Build and Push Authentic Image
 
 on:
   push:
     branches:
-      - main
+      - RhooneN
+  workflow_dispatch:
 
 jobs:
   docker:
@@ -14,7 +15,7 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Login to GHCR
@@ -24,10 +25,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Image
+      - name: Build Docker image
         run: |
-          docker build -t ghcr.io/YOUR_USERNAME/auth-service:latest .
+          docker build -t ghcr.io/rhoonen/ecommerce-api-payment:latest .
 
-      - name: Push Image
+      - name: Push Docker image
         run: |
-          docker push ghcr.io/YOUR_USERNAME/auth-service:latest
+          docker push ghcr.io/rhoonen/ecommerce-api-payment:latest
