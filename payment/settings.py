@@ -226,6 +226,6 @@ LOGGING = {
 import paypalrestsdk
 paypalrestsdk.configure({
     "mode": "sandbox",  
-    "client_id": config("client_id"),#"ASKLfmKE3cJwkZLhdzE0bpmSWDwyGWDIKGrkC40M5mI4pUONU1UFCLm2PI_ksNg5FPUGqJWPTbrdvlNA",
-    "client_secret": config("client_secret")# "EN1pwXWVvms_TV_4lnHFobaJ3nokktMZNqrx0JZ7NWxSpVq1WZDtSnirZk7ocVbsOEWEB7Q5nUt9tmYh"
+    "client_id": config("client_id","ASKLfmK"),
+    "client_secret": config("client_secret", "EN1pw")
 })
