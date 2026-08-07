@@ -7,8 +7,9 @@ class SimpleAuthMiddleware:
         
     def __call__(self, request):
         # Skip for non-API paths
-        non_api_paths = ['/admin/', '/static/', '/auth/login/', '/auth/register/']
+        non_api_paths = ['/admin/', '/static/', '/auth/login/', '/auth/register/', "/api/schema/"]
         if any(request.path.startswith(path) for path in non_api_paths):
+            print("nonapi")
             return self.get_response(request)
         
         # Skip for OPTIONS requests (CORS preflight)
@@ -17,6 +18,7 @@ class SimpleAuthMiddleware:
         
         # Only apply to API routes
         if request.path.startswith('/api/'):
+            print("APIapi")
             auth_header = request.META.get('HTTP_AUTHORIZATION', '')
             if not auth_header.startswith('Bearer '):
                 return JsonResponse({'error': 'Authentication required'}, status=401)

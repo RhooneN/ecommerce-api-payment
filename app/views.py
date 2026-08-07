@@ -15,9 +15,12 @@ from .models import Payment
 from .serializers import PaymentSerializer
 from .utils import update_order_status
 from django.http import JsonResponse
+from drf_spectacular.utils import extend_schema
+
 
 def health(request):
     return JsonResponse({"status": "ok"})
+
 logger = logging.getLogger(__name__)
 
 class PaymentView(APIView):
@@ -33,7 +36,11 @@ class PaymentView(APIView):
         payments = Payment.objects.filter(user_id = user_id)
         serializer = PaymentSerializer(payments, many=True)
         return Response(serializer.data)
-    
+        
+    @extend_schema(
+    request=PaymentSerializer,
+    responses=PaymentSerializer
+    )
     @transaction.atomic
     def post(self, request):
         """Create a new payment from an order"""

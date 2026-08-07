@@ -37,7 +37,7 @@ ORDER_SERVICE_TOKEN = os.environ.get('ORDER_SERVICE_TOKEN', '')  # Optional auth
 
 
 
-BASE_URL = 'http://localhost:8005'  # payment service URL
+BASE_URL = config('BASE_URL', 'http://localhost:8005')  # payment service URL
 
 # Application definition
 INSTALLED_APPS = [
@@ -90,14 +90,29 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
+    'TITLE': 'Payment service API',
+    'DESCRIPTION': 'Service pour verifier et recevoir les payment apres la validation dune commande',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
      'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     # OTHER SETTINGS
+    "APPEND_COMPONENTS": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+            }
+        }
+    },
+
+    "SECURITY": [
+        {
+            "bearerAuth": [],
+        }
+    ],
 }
 
 # Cache configuration for Django cache framework
@@ -199,7 +214,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'cart_service.log',
+            'filename': BASE_DIR / 'logs' / 'payment.log',
             'formatter': 'verbose',
         },
         'console': {
@@ -209,7 +224,7 @@ LOGGING = {
         },
     },
     'loggers': {
-        'app.serializers': {  
+        'app': {  
             'handlers': ['file', 'console'],
             'level': 'DEBUG' if DEBUG else 'INFO',
             'propagate': True,
@@ -221,6 +236,7 @@ LOGGING = {
         },
     },
 }
+
 
 # PayPal Configuration
 import paypalrestsdk
